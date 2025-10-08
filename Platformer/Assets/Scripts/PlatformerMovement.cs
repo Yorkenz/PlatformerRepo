@@ -8,10 +8,15 @@ public class NewBehaviourScript : MonoBehaviour
     public float moveSpeed = 5f;
     private bool grounded = false;
     Rigidbody2D rb;
+    //where do we want to play the sound
+    AudioSource audioSource;
+    //what sound do we want to play when we jump
+    public AudioClip jumpSound;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = Camera.main.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame  
@@ -27,6 +32,12 @@ public class NewBehaviourScript : MonoBehaviour
         //if you press the space AND on the ground, jump the char
         if (Input.GetButtonDown("Jump") && grounded)
         {
+            
+            if (audioSource != null && jumpSound != null)
+            {
+                //play my jump sound 
+                audioSource.PlayOneShot(jumpSound);
+            }
             rb.AddForce(new Vector2(0, 100 * jumpSpeed));
 
         }
