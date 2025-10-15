@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class playerhealth : MonoBehaviour
 {
+    AudioSource audioSource;
+    public AudioClip collisionSound;
     //store the Players health
     public float health = 10;
     float maxHealth;
@@ -19,6 +21,11 @@ public class playerhealth : MonoBehaviour
         {
             health--;
             healthBar.fillAmount = health / maxHealth;
+            if (audioSource != null && collisionSound != null)
+            {
+                
+                audioSource.PlayOneShot(collisionSound);
+            }
             //if health getts too low, we die (reload the level)
             if (health<=0)
             {
@@ -36,8 +43,14 @@ public class playerhealth : MonoBehaviour
             Destroy(collision.gameObject);
             health--;
             healthBar.fillAmount = health / maxHealth;
-            //if health getts too low, we die (reload the level)
-            if (health <= 0)
+            if (audioSource != null && collisionSound != null)
+            {
+                
+                audioSource.PlayOneShot(collisionSound);
+            }
+
+                //if health getts too low, we die (reload the level)
+                if (health <= 0)
             {
                 //reload the level
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -51,6 +64,8 @@ public class playerhealth : MonoBehaviour
     {
         maxHealth = health;
         healthBar.fillAmount = health / maxHealth;
+        
+        audioSource = Camera.main.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
