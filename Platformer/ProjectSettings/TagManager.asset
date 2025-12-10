@@ -8,11 +8,12 @@ TagManager:
   - Ground
   - Enemy
   - bullet
+  - Obstacle
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ' isGrounded'
   - Water
   - UI
   - 
